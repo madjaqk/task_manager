@@ -1,0 +1,34 @@
+<style type="text/css">
+	.register{
+		border: 2px solid blue;
+		margin: 50px;
+		padding: 25px;
+		vertical-align: top;
+		display: inline-block;
+	}
+</style>
+<div class="register">
+	<h2>Log In</h2>
+	<form action="/sessions" method="post">
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		<div>
+			<label for="email">E-mail:</label>
+			<input type="text" name="email">
+		</div>
+		<div>
+			<label for="password">Password:</label>
+			<input type="password" name="password">
+		</div>
+		<input type="submit" value="Log In">
+	</form>
+	<a href="/online_lending/register">Click here to register</a>
+</div>
+<div class="register">
+	<h2>Register</h2>
+	<%= simple_form_for @user, :url => "/task_manager/user" do |f| %>
+		<%= f.input :name %>
+		<%= f.input :email %>
+		<%= f.input :password %>
+		<%= f.button :submit, "Register" %>
+	<% end %>
+</div>

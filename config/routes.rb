@@ -1,4 +1,34 @@
 Rails.application.routes.draw do
+  root 'sessions#register'
+
+  get 'tasks/create'
+
+  get 'tasks/update'
+
+  get 'users/create'
+
+  get 'users/show'
+
+  get 'sessions/login'
+
+  get 'sessions/register'
+
+  get 'sessions/new'
+
+  get 'sessions/logout'
+
+  post 'sessions' => 'sessions#new'
+
+  delete '/sessions' => 'sessions#logout'
+
+  post "/task_manager/user" => 'users#create'
+
+  get "/task_manager/user/:id" => 'users#show'
+
+  post "task_manager/task" => 'tasks#create'
+
+  get "/task_manager/tasks_by_user" => 'tasks#tasks_by_user'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

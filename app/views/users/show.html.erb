@@ -1,0 +1,16 @@
+<h1>Users#show</h1>
+<h2>Hello, <%= @user.name %></h2>
+
+<ul>
+	<% @tasks.each do |task| %>
+		<li>
+			<%= task.description %> (done? <input type="checkbox" <% if task.completed %>checked<% end %>>)
+		</li>
+	<% end %>
+</ul>
+
+<h3>New Task</h3>
+<%= simple_form_for @new_task, :url => "/task_manager/task" do |f| %>
+	<%= f.input :description %>
+	<%= f.button :submit, "Add Task" %>
+<% end %>

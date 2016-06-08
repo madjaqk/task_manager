@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   post "task_manager/task" => 'tasks#create'
 
+  post "task_manager/update" => 'tasks#update'
+
   get "/task_manager/tasks_by_user" => 'tasks#tasks_by_user'
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,12 +1,48 @@
-<h1>Users#show</h1>
-<h2>Hello, <%= @user.name %></h2>
+<script type="text/javascript">
+	function get_tasks(){
+		$.get("/task_manager/tasks_by_user", function(data){
+			$("#completed").html("")
+			$("#open").html("")
+			var tasks = data
+			for(var i = 0; i < tasks.length; i++){
+				var task = `<li>${tasks[i].description} <input type="checkbox" task_id="${tasks[i].id}" ${tasks[i].completed && "checked"}></li>`
+				if(tasks[i].completed){
+					$("#completed").append(task)
+				} else {
+					$("#open").append(task)
+				}
+			}
+		})
+	}
+	$(document).ready(function(){
+		get_tasks()
 
-<ul>
-	<% @tasks.each do |task| %>
-		<li>
-			<%= task.description %> (done? <input type="checkbox" <% if task.completed %>checked<% end %>>)
-		</li>
-	<% end %>
+		$("form").submit(function(e){
+			$.post("/task_manager/task", $(this).serialize(), function(){
+				get_tasks()
+				$("input:text").val("")
+			})
+			e.preventDefault()
+		})
+
+		$(document).on("click", "input:checkbox", function(e){
+			console.log($(e.target).attr("task_id"))
+			console.log($(e.target).is(":checked"))
+			$.post("/task_manager/update", {"task_id": $(e.target).attr("task_id"), "completed": $(e.target).is(":checked")}, function(){
+				get_tasks()
+			})
+		})
+	})
+</script>
+
+<h1>Hello, <%= @user.name %></h1>
+
+<h3>Undone</h3>
+<ul id="open">
+</ul>
+
+<h3>Completed</h3>
+<ul id="completed">
 </ul>
 
 <h3>New Task</h3>

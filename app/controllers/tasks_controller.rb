@@ -14,6 +14,9 @@ class TasksController < ApplicationController
   end
 
   def update
+  	puts "params!"
+  	puts params
+  	Task.find(params[:task_id]).update(completed: params[:completed])
   end
 
   def tasks_by_user
